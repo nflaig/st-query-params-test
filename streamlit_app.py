@@ -1,5 +1,6 @@
 from urllib.parse import urlencode, parse_qs
 import streamlit as st
+import session_state
 
 logger = st._LOGGER
 
@@ -8,15 +9,13 @@ def get_query_param(key, query_params, default=''):
 
 query_params = {k: v[0] for k, v in st.experimental_get_query_params().items()}
 
-st.write("Session state before:", st.session_state)
+session = session_state.get(initial_query_params='')
 
-if 'initial_query_params' not in st.session_state:
-    st.session_state['initial_query_params'] = query_params.copy()
-    logger.info(f'Initial query params: {st.session_state["initial_query_params"]}')
+if not session.initial_query_params:
+    session.initial_query_params = query_params.copy()
+    logger.info(f'Initial query params: {session.initial_query_params}')
 
-st.write("Session state after:", st.session_state)
-
-initial_query_params = st.session_state['initial_query_params']
+initial_query_params = session.initial_query_params
 
 st.write("Initial query params:", initial_query_params)
 st.write("Query params before setting new ones:", query_params)
