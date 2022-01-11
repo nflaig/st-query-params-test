@@ -4,9 +4,6 @@ import session_state
 
 logger = st._LOGGER
 
-def get_query_param(key, query_params, default=''):
-    return query_params[key][0] if key in query_params else default
-
 query_params = {k: v[0] for k, v in st.experimental_get_query_params().items()}
 
 session = session_state.get(initial_query_params=None)
