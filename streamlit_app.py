@@ -9,7 +9,7 @@ def get_query_param(key, query_params, default=''):
 
 query_params = {k: v[0] for k, v in st.experimental_get_query_params().items()}
 
-session = session_state.get(initial_query_params='')
+session = session_state.get(initial_query_params=None)
 
 if not session.initial_query_params:
     session.initial_query_params = query_params.copy()
