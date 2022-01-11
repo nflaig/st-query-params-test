@@ -8,13 +8,17 @@ def get_query_param(key, query_params, default=''):
 
 query_params = {k: v[0] for k, v in st.experimental_get_query_params().items()}
 
+st.write("Session state before:", st.session_state)
+
 if 'initial_query_params' not in st.session_state:
     st.session_state['initial_query_params'] = query_params.copy()
     logger.info(f'Initial query params: {st.session_state["initial_query_params"]}')
 
+st.write("Session state after:", st.session_state)
+
 initial_query_params = st.session_state['initial_query_params']
 
-st.write("Initial query params: ", initial_query_params)
+st.write("Initial query params:", initial_query_params)
 st.write("Query params before setting new ones:", query_params)
 
 new_query_string = st.text_area("New query params string (like 'a=b&c=d')", value=urlencode(initial_query_params))
